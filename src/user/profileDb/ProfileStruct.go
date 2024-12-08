@@ -1,16 +1,15 @@
 package profileDb
 
 type ProfileUser struct {
-	Name         string `json:"name"`
-	Email        string `json:"email"`
-	Phone        string `json:"phone"`
-	Password     string `json:"password"`
-	Gender       string `json:"gender"`
-	Dob          string `json:"dob"`
-	About        string `json:"about"`
-	ProfilePhoto string `json:"profile_photo"`
-	Address      string `json:"address"`
-	Location     string `json:"location"`
-	Status       bool   `json:"status"`
-	Message      string `json:"message"`
+	Name         string `json:"name,omitempty"`
+	Email        string `json:"email,omitempty"`
+	Phone        string `json:"phone,omitempty"`
+	Gender       string `json:"gender,omitempty"`
+	Dob          string `json:"dob,omitempty"`
+	About        string `json:"about,omitempty"`
+	ProfilePhoto string `json:"profile_photo,omitempty"`
+	Address      string `json:"address,omitempty"`
+	Location     string `json:"location,omitempty"`
+	Status       bool   `json:"status,omitempty"`
+	Message      string `json:"message,omitempty"`
 }

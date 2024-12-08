@@ -1,13 +1,13 @@
 package userRegistrationDb
 
 type RegistrationUser struct {
-	Username string `json:"username"`
-	Email    string `json:"email"`
-	Phone    string `json:"phone"`
-	Password string `json:"password"`
-	FullName string `json:"full_name"`
-	Gender   string `json:"gender"`
-	DOB      string `json:"dob"`
-	Status   bool   `json:"status"`
-	Message  string `json:"message"`
+	Username string `json:"username,omitempty"`
+	Email    string `json:"email,omitempty"`
+	Phone    string `json:"phone,omitempty"`
+	Password string `json:"password,omitempty"`
+	FullName string `json:"full_name,omitempty"`
+	Gender   string `json:"gender,omitempty"`
+	DOB      string `json:"dob,omitempty"`
+	Status   bool   `json:"status,omitempty"`
+	Message  string `json:"message,omitempty"`
 }

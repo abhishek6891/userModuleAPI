@@ -15,11 +15,18 @@ func LoginRequestWithGet(c *gin.Context) {
 	password := params.Get("password")
 
 	var loginUser userLocalDb.LoginUser
-	_, isExist := userLocalDb.ValidUsers[email]
+	// ValidUser: it holds all allowed email addresses & passwords
+
+	passwd, isExist := userLocalDb.ValidUsers[email]
 	if isExist {
-		loginUser = userLocalDb.LoginUser{Email: email, Password: password, Phone: phone, Status: true, Message: "Logged in successfully."}
-		userLocalDb.LoggedInUserList = append(userLocalDb.LoggedInUserList, loginUser)
-		c.JSON(http.StatusOK, gin.H{"data": loginUser})
+		if passwd == password {
+			loginUser = userLocalDb.LoginUser{Email: email, Password: password, Phone: phone, Status: true, Message: "Logged in successfully."}
+			userLocalDb.LoggedInUserList = append(userLocalDb.LoggedInUserList, loginUser)
+			c.JSON(http.StatusOK, gin.H{"data": loginUser})
+		} else {
+			loginUser = userLocalDb.LoginUser{Email: email, Status: false, Message: "Password is incorrect."}
+			c.JSON(http.StatusOK, gin.H{"data": loginUser})
+		}
 		return
 	} else {
 		loginUser = userLocalDb.LoginUser{Email: email, Status: false, Message: "Login is not authorized."}

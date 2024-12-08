@@ -1,6 +1,7 @@
 package registration
 
 import (
+	"awesomeProject/src/user/userLocalDb"
 	"awesomeProject/src/user/userRegistrationDb"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -19,14 +20,21 @@ func RegistrationRequestWithGet(c *gin.Context) {
 	dob := params.Get("dob")
 
 	var registrationUser userRegistrationDb.RegistrationUser
-	_, isExist := userRegistrationDb.TrueUser[email]
+	//_, isExist := userRegistrationDb.TrueUser[email]
+	_, isExist := userLocalDb.ValidUsers[email]
 	if isExist {
 		registrationUser = userRegistrationDb.RegistrationUser{Username: username, Email: email, Password: password, Phone: phone, FullName: fullname, Gender: gender, DOB: dob, Status: true, Message: " Registered successfully."}
 		userRegistrationDb.RegisteredInUserList = append(userRegistrationDb.RegisteredInUserList, registrationUser)
 		c.JSON(http.StatusOK, gin.H{"data": registrationUser})
 		return
 	} else {
-		registrationUser = userRegistrationDb.RegistrationUser{Email: email, Status: false, Message: "Already Registered."}
-		c.JSON(http.StatusNonAuthoritativeInfo, gin.H{"data": registrationUser})
+		var errorMsg = Error{Status: false, Message: "This is Demo practice, Only pre defined emails are allowed."}
+		c.JSON(http.StatusNonAuthoritativeInfo, gin.H{"data": errorMsg})
 	}
+}
+
+type Error struct {
+	Status  bool   `json:"status"`
+	Message string `json:"message"`
+	Field   string `json:"field,omitempty"`
 }
