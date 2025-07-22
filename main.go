@@ -10,7 +10,7 @@ import (
 func main() {
 	route := gin.Default()
 
-	route.GET("/login", login.LoginRequestWithGet)
+	route.GET("/login", login.LoginRequestWithPost)
 	route.GET("/registration", registration.RegistrationRequestWithGet)
 	route.GET("/profile", profile.ProfileRequestWithGet)
 
